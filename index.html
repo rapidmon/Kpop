@@ -5,9 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KPOP에 미친 자들을 위하여</title>
-    <script src="https://www.youtube.com/iframe_api"></script>
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
-    
+    <button id="startGame">게임 시작</button>
+    <div id="player"></div> <!-- YouTube 비디오 플레이어를 위한 컨테이너 -->
+    <input type="text" id="songTitle" placeholder="노래 제목">
+    <input type="text" id="artistName" placeholder="가수 이름">
+    <button id="submitAnswer">제출</button>
+    <button id="nextSong">다음</button>
 </body>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script src="./index.js"></script>
 </html>
