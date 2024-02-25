@@ -1,3 +1,14 @@
+function loadYoutubeIframeAPI() {
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+window.onload = function() {
+    loadYoutubeIframeAPI();
+};
+
 // YouTube 플레이어를 생성하기 위한 변수 선언
 var player;
 
