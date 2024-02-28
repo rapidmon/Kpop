@@ -7,17 +7,20 @@ function loadYoutubeIframeAPI() {
 
 window.onload = function() {
     loadYoutubeIframeAPI();
+    onYouTubeIframeAPIReady()
 };
 
 // YouTube 플레이어를 생성하기 위한 변수 선언
-var player;
+let player;
+
+videolist = ['x-Om0G8Dwis', 'l-jZOXa7gQY', 'kmD6JcAV_Rc', 'Zj9-RiEf4Og', 's4Ow55AbdCg', 'Bdzv7JBvkis']
 
 // YouTube Iframe API가 준비되면 호출될 함수
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: 'l-jZOXa7gQY', // 첫 번째 노래의 YouTube Video ID
+        videoId: videolist[2], // 첫 번째 노래의 YouTube Video ID
         playerVars: {
             'autoplay': 0, // 자동 재생 비활성화
             'controls': 1, // 컨트롤 바 표시
@@ -33,8 +36,16 @@ function onYouTubeIframeAPIReady() {
 function onPlayerReady(event) {
     // 게임 시작 버튼에 이벤트 리스너 추가
     document.getElementById('startGame').addEventListener('click', function() {
+        player.seekTo(0);
         playSnippet();
+        document.getElementById('startGame').style.display = "none"
+        document.getElementById('onemoretime').style.display = "inline-block"
     });
+    
+    document.getElementById('onemoretime').addEventListener('click', function() {
+        player.seekTo(0);
+        playSnippet();
+    })
 
     // 제출 버튼에 이벤트 리스너 추가
     document.getElementById('submitAnswer').addEventListener('click', function() {
@@ -50,7 +61,6 @@ function onPlayerReady(event) {
 
 // 1초 동안 노래 조각 재생
 function playSnippet() {
-    player.seekTo(0); // 노래 시작 지점으로 이동
     player.playVideo();
     setTimeout(function() {
         player.pauseVideo();
