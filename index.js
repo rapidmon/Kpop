@@ -7,7 +7,6 @@ function loadYoutubeIframeAPI() {
 
 window.onload = function() {
     loadYoutubeIframeAPI();
-    onYouTubeIframeAPIReady()
 };
 
 // YouTube 플레이어를 생성하기 위한 변수 선언
@@ -33,18 +32,25 @@ function onYouTubeIframeAPIReady() {
 }
 
 // 플레이어 준비가 완료되면 호출될 함수
-function onPlayerReady(event) {
+function onPlayerReady() {
     // 게임 시작 버튼에 이벤트 리스너 추가
     document.getElementById('startGame').addEventListener('click', function() {
+        console.log(player)
         player.seekTo(0);
-        playSnippet();
+        player.playVideo();
+        setTimeout(function() {
+            player.pauseVideo();
+        }, 1000); 
         document.getElementById('startGame').style.display = "none"
         document.getElementById('onemoretime').style.display = "inline-block"
     });
     
     document.getElementById('onemoretime').addEventListener('click', function() {
         player.seekTo(0);
-        playSnippet();
+        player.playVideo();
+        setTimeout(function() {
+            player.pauseVideo();
+        }, 1000); 
     })
 
     // 제출 버튼에 이벤트 리스너 추가
@@ -57,12 +63,4 @@ function onPlayerReady(event) {
     document.getElementById('nextSong').addEventListener('click', function() {
         // 다음 노래로 넘어가는 로직 추가
     });
-}
-
-// 1초 동안 노래 조각 재생
-function playSnippet() {
-    player.playVideo();
-    setTimeout(function() {
-        player.pauseVideo();
-    }, 1000); // 1초 후에 재생 멈춤
 }
