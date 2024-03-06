@@ -37,7 +37,7 @@ function onYouTubeIframeAPIReady() {
 // 플레이어 준비가 완료되면 호출될 함수
 function onPlayerReady() {
     player.setShuffle(true);
-    player.playVideoAt(0); 
+    player.playVideoAt(0);
     document.getElementById('startGame').addEventListener('click', function() {
         player.seekTo(0);
         player.playVideo();
