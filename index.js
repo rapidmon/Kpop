@@ -1,3 +1,4 @@
+// youtube iframe api 호출
 function loadYoutubeIframeAPI() {
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
@@ -9,12 +10,11 @@ window.onload = function() {
     loadYoutubeIframeAPI();
 };
 
-// YouTube 플레이어를 생성하기 위한 변수 선언
 let player;
 
 videolist = ['x-Om0G8Dwis', 'l-jZOXa7gQY', 'kmD6JcAV_Rc', 'Zj9-RiEf4Og', 's4Ow55AbdCg', 'Bdzv7JBvkis']
 
-// YouTube Iframe API가 준비되면 호출될 함수
+// youtube iframe api 호출 후 player 설정 함수
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0',
@@ -27,20 +27,16 @@ function onYouTubeIframeAPIReady() {
         },
         events: {
             'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
         }
     });
 }
 
 // 플레이어 준비가 완료되면 호출될 함수
 function onPlayerReady() {
-    // 게임 시작 버튼에 이벤트 리스너 추가
     document.getElementById('startGame').addEventListener('click', function() {
-        console.log(player)
         player.seekTo(0);
         player.playVideo();
-        setTimeout(function() {
-            player.pauseVideo();
-        }, 1000); 
         document.getElementById('startGame').style.display = "none"
         document.getElementById('onemoretime').style.display = "inline-block"
     });
@@ -48,19 +44,23 @@ function onPlayerReady() {
     document.getElementById('onemoretime').addEventListener('click', function() {
         player.seekTo(0);
         player.playVideo();
-        setTimeout(function() {
-            player.pauseVideo();
-        }, 1000); 
     })
-
-    // 제출 버튼에 이벤트 리스너 추가
+    
     document.getElementById('submitAnswer').addEventListener('click', function() {
-        // 여기에 정답 검증 로직 추가
-        player.playVideo(); // 정답 제출 후 전체 노래 재생
+        player.seekTo(0);
+        player.playVideo();
     });
 
-    // 다음 버튼에 이벤트 리스너 추가
+
     document.getElementById('nextSong').addEventListener('click', function() {
         // 다음 노래로 넘어가는 로직 추가
     });
+}
+
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+        setTimeout(function() {
+            player.stopVideo();
+        }, 1000);
+    }
 }
